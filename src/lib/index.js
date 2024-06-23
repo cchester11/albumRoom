@@ -26,6 +26,30 @@ export async function getSpotifyAuth() {
       }
 };
 
+/**
+ * Get album data from Spotify.
+ * 
+ * @param {string} album_id - The album ID.
+ */
+export async function getAudioFeatures_Album (album_id) {
+      const access_token = await getSpotifyAuth();
+
+      const getAlbumURL = 'https://api.spotify.com/v1/albums/' + album_id;
+
+      try {
+            const response = await axios.get(getAlbumURL, {
+                  headers: {
+                        'Authorization': 'Bearer ' + access_token
+                  }
+            });
+
+            return response.data.tracks.items;
+      } catch (error) {
+            console.error('Error getting album: ', error);
+            throw error;
+      }
+};
+
 
 // Example usage:
 // getSpotifyAuth().then(token => {
