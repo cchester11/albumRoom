@@ -9,5 +9,4 @@
       })
 </script>
 
-<h1>Album Room</h1>
 <p>Albums</p>
