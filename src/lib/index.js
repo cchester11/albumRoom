@@ -43,7 +43,7 @@ export async function getAudioFeatures_Album (album_id) {
                   }
             });
 
-            return response.data.tracks.items;
+            return response.data;
       } catch (error) {
             console.error('Error getting album: ', error);
             throw error;
