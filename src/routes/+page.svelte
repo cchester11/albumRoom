@@ -10,4 +10,11 @@
       })
 </script>
 
-<p>Albums</p>
+<div>
+      <!-- categories container
+      add new category button in top left
+      category cards container
+
+      modal that is activated if new category button clicked
+      save button to save new category or cancel button to delete modal state and close modal -->
+</div>
