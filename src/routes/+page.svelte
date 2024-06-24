@@ -10,7 +10,7 @@
       })
 </script>
 
-<div>
+<div class="container">
       <!-- categories container
       add new category button in top left
       category cards container
