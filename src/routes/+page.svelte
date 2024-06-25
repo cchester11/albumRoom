@@ -10,7 +10,7 @@
 	});
 </script>
 
-<div class="h-full flex flex-col">
+<div class="h-full flex flex-col bg-lounge bg-cover bg-center">
 	<!-- categories container
       add new category button in top left
       category cards container
