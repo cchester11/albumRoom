@@ -33,7 +33,7 @@
 			type="button"
 			on:click={toggleModal}
 		>
-			Add Category
+			Add Room
 		</button>
 	</div>
 	<div class="h-full flex items-center justify-center">Categories</div>
@@ -42,11 +42,8 @@
 	{#if $showModal}
 	<div tabindex="-1" aria-hidden="true" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
 		<div class="bg-white p-6 rounded-lg shadow-lg w-1/3 h-1/3">
-			<div>
-				<h1 class="text-xl font-semibold mb-4">Category</h1>
-			</div>
 			<div class="mb-4">
-				<label for="category" class="block text-gray-700 mb-2">Category</label>
+				<label for="category" class="block text-gray-700 mb-2">Room</label>
 				<input type="text" name="category" id="category" placeholder="Jazz" required class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"/>
 			</div>
 			<div class="flex justify-end">
