@@ -57,12 +57,13 @@
 				<div 
 					class="h-full w-full rounded flex items-center justify-center hover:bg-slate-900 bg-slate-900 bg-opacity-80 hover:bg-opacity-100"
 				>
-					<h2 
+					<button 
 						class="text-4xl text-slate-100" 
 						style="font-family: Playwrite US Trad, cursive; font-weight: 400; font-style: normal;"
+						type="button"
 					>
 						{room}
-					</h2>
+					</button>
 				</div>
 			{/each}
 	</div>
