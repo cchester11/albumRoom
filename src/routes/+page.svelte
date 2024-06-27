@@ -42,6 +42,7 @@
 			});
 
 			if (response.ok) {
+				newRoom = '';
 				await getRooms(); // refresh
 				toggleModal(); //close modal
 			} else {
