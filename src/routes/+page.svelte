@@ -5,6 +5,7 @@
 
 	const showModal = writable(false);
 	const rooms = writable([]);
+	let newRoom = '';
 
 	// Manage modal visibility
 	function toggleModal() {
@@ -26,6 +27,28 @@
 			}
 		} catch (err) {
 			console.error('Error fetching categories: ', err);
+		}
+	};
+
+	// add room post request
+	async function addRoom() {
+		try {
+			const response = await fetch('http://localhost:8000/api/rooms', {
+				method: "POST",
+				headers: {
+					'Content-Type': "application/json"
+				}, 
+				body: JSON.stringify({ room: newRoom })
+			});
+
+			if (response.ok) {
+				await getRooms(); // refresh
+				toggleModal(); //close modal
+			} else {
+				console.error('Failed to add room');
+			}
+		} catch (err) {
+			console.error('Error adding room: ', err)
 		}
 	};
 
@@ -85,6 +108,7 @@
 						placeholder="Jazz"
 						required
 						class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
+						bind:value={newRoom}
 					/>
 				</div>
 				<div class="flex justify-end">
@@ -96,7 +120,7 @@
 					</button>
 					<button
 						class="bg-lime-700 hover:bg-lime-900 text-white font-semibold py-2 px-4 rounded"
-						on:click={toggleModal}
+						on:click={addRoom}
 					>
 						Save
 					</button>
