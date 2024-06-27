@@ -1,6 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import { writable } from 'svelte/store';
+	import { goto } from '$app/navigation';
 	import { getSpotifyAuth, getAudioFeatures_Album } from '$lib';
 
 	const showModal = writable(false);
@@ -10,7 +11,7 @@
 	// Manage modal visibility
 	function toggleModal() {
 		showModal.update((value) => !value);
-	}
+	};
 
 	// fetch rooms function
 	async function getRooms() {
@@ -23,7 +24,7 @@
 				// collect in global array variable
 				rooms.set(data);
 			} else {
-				console.error('Failed to fetch categories')
+				console.error('Failed to fetch categories');
 			}
 		} catch (err) {
 			console.error('Error fetching categories: ', err);
@@ -34,10 +35,10 @@
 	async function addRoom() {
 		try {
 			const response = await fetch('http://localhost:8000/api/rooms', {
-				method: "POST",
+				method: 'POST',
 				headers: {
-					'Content-Type': "application/json"
-				}, 
+					'Content-Type': 'application/json'
+				},
 				body: JSON.stringify({ room: newRoom })
 			});
 
@@ -49,19 +50,33 @@
 				console.error('Failed to add room');
 			}
 		} catch (err) {
-			console.error('Error adding room: ', err)
+			console.error('Error adding room: ', err);
 		}
+	};
+
+	/**
+	 * Route to album room
+	 *
+	 * @param {string} room - The room name.
+	 */
+	// route to album room
+	async function toRoom(room) {
+		// variable to store room value in localstorage
+		let toRoom = room;
+		localStorage.setItem('room', toRoom);
+
+		// use navigation from svelte-routing or goto from $app/navigation to /albums
+		goto('/albums');
 	};
 
 	// onMount
 	onMount(() => {
 		getRooms();
-	})
+	});
 </script>
 
 <!-- Main Container -->
 <div class="h-full flex flex-col bg-lounge bg-cover bg-center">
-
 	<!-- New Room Button -->
 	<div class="m-7">
 		<button
@@ -77,19 +92,20 @@
 
 	<!-- Rooms List -->
 	<div class="h-full w-full grid grid-cols-2 items-center gap-4 p-10 justify-between">
-			{#each $rooms as room}
-				<div 
-					class="h-full w-full rounded flex items-center justify-center hover:bg-slate-900 bg-slate-900 bg-opacity-80 hover:bg-opacity-100"
+		{#each $rooms as room}
+			<div
+				class="h-full w-full rounded flex items-center justify-center hover:bg-slate-900 bg-slate-900 bg-opacity-80 hover:bg-opacity-100"
+			>
+				<button
+					class="text-4xl text-slate-100"
+					style="font-family: Playwrite US Trad, cursive; font-weight: 400; font-style: normal;"
+					type="button"
+					on:click={ () => toRoom(room) }
 				>
-					<button 
-						class="text-4xl text-slate-100" 
-						style="font-family: Playwrite US Trad, cursive; font-weight: 400; font-style: normal;"
-						type="button"
-					>
-						{room}
-					</button>
-				</div>
-			{/each}
+					{room}
+				</button>
+			</div>
+		{/each}
 	</div>
 
 	<!-- Category Modal -->
