@@ -2,7 +2,7 @@
       // imports
       import { onMount } from "svelte";
       import { writable } from "svelte/store";
-      import { getSpotifyAuth, getAudioFeatures_Album } from '$lib';
+      import { getAudioFeatures_Album } from '$lib';
 
       // globals
       /**
@@ -17,7 +17,7 @@
 		showModal.update((value) => !value);
 	};
 
-      // fetch albums for room
+      // fetch album URIs for room
       async function getAlbums () {
             try {
                   const param = room ? room.toLowerCase() : '';
@@ -35,6 +35,21 @@
             } catch (err) {
                   console.error('Error fetching albums: ', err);
             }
+      };
+
+      // fetch album data per album
+      /**
+       * 
+       * @param {string} albumURI 
+       */
+      async function fetchAlbumData (albumURI) {
+            // use getAudioFeatures_Album 
+
+            // extract necessary data
+
+            // append necessary data variable and/or append directly to dom
+
+            // catch error
       };
 
       // logic to run on page load
