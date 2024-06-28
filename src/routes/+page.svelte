@@ -2,7 +2,6 @@
 	import { onMount } from 'svelte';
 	import { writable } from 'svelte/store';
 	import { goto } from '$app/navigation';
-	import { getSpotifyAuth, getAudioFeatures_Album } from '$lib';
 
 	const showModal = writable(false);
 	const rooms = writable([]);
