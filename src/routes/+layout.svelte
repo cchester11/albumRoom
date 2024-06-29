@@ -7,7 +7,7 @@
             <nav class="h-full flex items-center justify-center">
                   <h1 style="font-family: Playwrite US Trad, cursive; font-weight: 400; font-style: normal;">
 				<span>
-					<a href="/" target="_blank">
+					<a href="/">
 						Album Room
 					</a>
 				</span>
