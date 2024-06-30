@@ -60,6 +60,39 @@
 		}
 	}
 
+	// post album
+	async function postAlbum() {
+		try {
+                  // grab room
+                  const roomBody = room ? room.toLowerCase() : '';
+                  const uriBody = albumURI;
+                  const apiURL = 'http://localhost:8000/api/albums';
+			// send post request with album uri
+                  const response = await fetch(apiURL, {
+                        method: "POST", 
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                              room: roomBody,
+                              uri: uriBody
+                        })
+                  });
+			// check that response is okay
+                  if(response.ok) {
+                        // reset albumURI
+                        albumURI = '';
+                        // get albums
+                        getAlbums();
+                        // toggle modal
+                        toggleModal();
+                  } else {
+                        console.log(response)
+                        console.error('Failed to add album')
+                  };
+		} catch (err) {
+                  console.error('Error posting album: ' + err)
+            }
+	}
+
 	// logic to run on page load
 	onMount(() => {
 		// Check if localStorage is available
@@ -90,9 +123,7 @@
 	<!-- Albums List -->
 	<div class="h-full w-full grid grid-cols-2 items-center gap-4 p-10 justify-between">
 		{#each $albums as album}
-			<div
-				class="h-full w-full rounded flex items-center justify-center"
-			>
+			<div class="h-full w-full rounded flex items-center justify-center">
 				{#await fetchAlbumData(album) then albumPicture}
 					{#if albumPicture}
 						<img src={albumPicture} alt="album" />
@@ -137,7 +168,10 @@
 					>
 						Cancel
 					</button>
-					<button class="bg-lime-700 hover:bg-lime-900 text-white font-semibold py-2 px-4 rounded">
+					<button 
+                                    class="bg-lime-700 hover:bg-lime-900 text-white font-semibold py-2 px-4 rounded"
+                                    on:click={postAlbum}
+                              >
 						Save
 					</button>
 				</div>
