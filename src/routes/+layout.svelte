@@ -16,7 +16,7 @@
 		</nav>
 	</header>
 
-	<main class="flex-grow">
+	<main class="flex-grow bg-lounge bg-cover bg-center">
 		<slot></slot>
 	</main>
 

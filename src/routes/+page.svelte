@@ -75,7 +75,7 @@
 </script>
 
 <!-- Main Container -->
-<div class="flex-grow flex flex-col bg-lounge bg-cover bg-center">
+<div class="flex-grow flex flex-col">
 	<!-- New Room Button -->
 	<div class="m-7">
 		<button
