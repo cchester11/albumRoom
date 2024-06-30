@@ -10,7 +10,7 @@
 	// Manage modal visibility
 	function toggleModal() {
 		showModal.update((value) => !value);
-	};
+	}
 
 	// fetch rooms function
 	async function getRooms() {
@@ -28,7 +28,7 @@
 		} catch (err) {
 			console.error('Error fetching categories: ', err);
 		}
-	};
+	}
 
 	// add room post request
 	async function addRoom() {
@@ -51,7 +51,7 @@
 		} catch (err) {
 			console.error('Error adding room: ', err);
 		}
-	};
+	}
 
 	/**
 	 * Route to album room
@@ -66,7 +66,7 @@
 
 		// use navigation from svelte-routing or goto from $app/navigation to /albums
 		goto('/albums');
-	};
+	}
 
 	// onMount
 	onMount(() => {
@@ -75,7 +75,7 @@
 </script>
 
 <!-- Main Container -->
-<div class="h-full flex flex-col bg-lounge bg-cover bg-center">
+<div class="flex-grow flex flex-col bg-lounge bg-cover bg-center">
 	<!-- New Room Button -->
 	<div class="m-7">
 		<button
@@ -90,16 +90,18 @@
 	</div>
 
 	<!-- Rooms List -->
-	<div class="h-full w-full grid grid-cols-2 items-center gap-4 p-10 justify-between">
+	<div
+		class="flex-grow w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-10 overflow-auto"
+	>
 		{#each $rooms as room}
 			<div
-				class="h-full w-full rounded flex items-center justify-center hover:bg-slate-900 bg-slate-900 bg-opacity-80 hover:bg-opacity-100"
+				class="h-48 md:h-64 lg:h-80 w-full rounded flex items-center justify-center hover:bg-slate-900 bg-slate-900 bg-opacity-80 hover:bg-opacity-100"
 			>
 				<button
-					class="text-4xl text-slate-100"
+					class="text-2xl md:text-3xl lg:text-4xl text-slate-100"
 					style="font-family: Playwrite US Trad, cursive; font-weight: 400; font-style: normal;"
 					type="button"
-					on:click={ () => toRoom(room) }
+					on:click={() => toRoom(room)}
 				>
 					{room}
 				</button>
