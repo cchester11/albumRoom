@@ -26,6 +26,13 @@ export async function getSpotifyAuth() {
       }
 };
 
+// Example usage:
+// getSpotifyAuth().then(token => {
+//       console.log('Access Token:', token);
+// }).catch(error => {
+//       console.error('Error:', error);
+// });
+
 /**
  * Get album data from Spotify.
  * 
@@ -49,11 +56,3 @@ export async function getAudioFeatures_Album (album_id) {
             throw error;
       }
 };
-
-
-// Example usage:
-// getSpotifyAuth().then(token => {
-//       console.log('Access Token:', token);
-// }).catch(error => {
-//       console.error('Error:', error);
-// });
