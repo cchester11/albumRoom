@@ -2,7 +2,7 @@
 	// imports
 	import { onMount } from 'svelte';
 	import { writable } from 'svelte/store';
-	import { getAudioFeatures_Album } from '$lib';
+	import { getSpotifyAuth, getAudioFeatures_Album, loadSDK } from '$lib';
 
 	// globals
 	/**
@@ -12,6 +12,7 @@
 	const showModal = writable(false);
 	const albums = writable([]);
 	let albumURI = '';
+	let player;
 
 	// Manage modal visibility
 	function toggleModal() {
@@ -63,38 +64,41 @@
 	// post album
 	async function postAlbum() {
 		try {
-                  // grab room
-                  const roomBody = room ? room.toLowerCase() : '';
-                  const uriBody = albumURI;
-                  const apiURL = 'http://localhost:8000/api/albums';
+			// grab room
+			const roomBody = room ? room.toLowerCase() : '';
+			const uriBody = albumURI;
+			const apiURL = 'http://localhost:8000/api/albums';
 			// send post request with album uri
-                  const response = await fetch(apiURL, {
-                        method: "POST", 
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({
-                              room: roomBody,
-                              uri: uriBody
-                        })
-                  });
+			const response = await fetch(apiURL, {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					room: roomBody,
+					uri: uriBody
+				})
+			});
 			// check that response is okay
-                  if(response.ok) {
-                        // reset albumURI
-                        albumURI = '';
-                        // get albums
-                        getAlbums();
-                        // toggle modal
-                        toggleModal();
-                  } else {
-                        console.log(response)
-                        console.error('Failed to add album')
-                  };
+			if (response.ok) {
+				// reset albumURI
+				albumURI = '';
+				// get albums
+				getAlbums();
+				// toggle modal
+				toggleModal();
+			} else {
+				console.log(response);
+				console.error('Failed to add album');
+			}
 		} catch (err) {
-                  console.error('Error posting album: ' + err)
-            }
+			console.error('Error posting album: ' + err);
+		}
 	}
 
 	// logic to run on page load
-	onMount(() => {
+	onMount(async () => {
+		// await load of spotify sdk
+		await loadSDK();
+
 		// Check if localStorage is available
 		if (typeof localStorage !== 'undefined') {
 			room = localStorage.getItem('room');
@@ -168,10 +172,10 @@
 					>
 						Cancel
 					</button>
-					<button 
-                                    class="bg-lime-700 hover:bg-lime-900 text-white font-semibold py-2 px-4 rounded"
-                                    on:click={postAlbum}
-                              >
+					<button
+						class="bg-lime-700 hover:bg-lime-900 text-white font-semibold py-2 px-4 rounded"
+						on:click={postAlbum}
+					>
 						Save
 					</button>
 				</div>

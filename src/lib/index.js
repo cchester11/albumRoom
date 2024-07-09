@@ -1,4 +1,5 @@
 // place files you want to import through the `$lib` alias in this folder.
+
 import axios from "axios";
 import qs from "qs";
 
@@ -55,4 +56,27 @@ export async function getAudioFeatures_Album (album_id) {
             console.error('Error getting album: ', error);
             throw error;
       }
+};
+
+// Export function that dynamically loads the Spotify SDK
+/**
+ * @returns {Promise<void>} The promise resolves without a value and only signifies a completed load of the SDK, so we use a void type on return.
+ */
+export function loadSDK() {
+      // Return a promise
+      return new Promise((resolve, reject) => {
+            // Dynamically create a script element
+            const script = document.createElement("script");
+            // Set necessary script properties
+            script.src = "https://sdk.scdn.co/spotify-player.js";
+            script.async = true;
+            // Resolve or reject the promise
+            // The onload event handler resolves the promise when the script is loaded
+            script.onload = () => resolve();
+            // The onerror event handler rejects the promise if the script fails to load
+            script.onerror = () => reject(new Error('Spotify SDK failed to load'));
+            // Append the script to the body
+            // The onload and onerror event handlers will be triggered when the script is added to the document
+            document.body.appendChild(script);
+      });
 };
